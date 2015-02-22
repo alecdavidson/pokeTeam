@@ -1,5 +1,5 @@
 ##Alec Davidson - Summer 2014
-import flask, flask.views, os
+import flask, flask.views, os, main
 
 app = flask.Flask(__name__)
 
@@ -10,7 +10,11 @@ class View(flask.views.MethodView):
     return flask.render_template('index.html')
   
   def post(self):
-    return self.get()
+	party = flask.request.form['party']
+	leg = flask.request.form['leg']
+
+	main.start(party, leg)
+	return self.get()
   
 app.add_url_rule('/', view_func=View.as_view('main'), methods=['GET','POST'])
 
